@@ -3,6 +3,7 @@ package com.qdb.dms.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -26,14 +27,14 @@ public class DocumentController {
 	@Autowired
 	private DocumentService documentService;
 
-	@PostMapping(value = "/document", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/documents", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
 	public DocumentUploadResponse uploadDocument(@RequestPart("file") MultipartFile fileRequest) throws IOException {
 
 		return documentService.uploadDocument(fileRequest);
 		
 	}
 
-	@GetMapping(value = "/document/{id}", produces = "application/pdf")
+	@GetMapping(value = "/documents/{id}", produces = "application/pdf")
 	public ResponseEntity<InputStreamResource> downloadDocument(@PathVariable("id") int docId) throws IOException {
 		HttpHeaders headers = new HttpHeaders();
 		  headers.setContentType(MediaType.parseMediaType("application/pdf"));
@@ -56,5 +57,11 @@ public class DocumentController {
 		  
 		return null;
 	}
+	
+	@GetMapping(value = "/documents")
+	public List<Integer> listDocuments() {
+		return documentService.listDocuments();
+	}
+	
 
 }
