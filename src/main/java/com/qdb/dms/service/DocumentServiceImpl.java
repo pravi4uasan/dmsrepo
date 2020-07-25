@@ -1,10 +1,14 @@
 package com.qdb.dms.service;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.qdb.dms.entity.Document;
@@ -41,6 +45,17 @@ public class DocumentServiceImpl implements DocumentService {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public List<Integer> listDocuments() {
+		List<Document> docList = documentRepository.findAll();
+		if(!CollectionUtils.isEmpty(docList)) {
+			return docList.stream()
+				.map(doc -> doc.getDocId())
+				.collect(Collectors.toList());
+		}
+		return Collections.emptyList();
 	}
 
 }
