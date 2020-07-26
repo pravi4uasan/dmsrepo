@@ -14,11 +14,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.qdb.dms.request.CommentRequest;
+import com.qdb.dms.request.PostRequest;
+import com.qdb.dms.response.CommentResponse;
 import com.qdb.dms.response.DocumentUploadResponse;
+import com.qdb.dms.response.PostResponse;
 import com.qdb.dms.service.DocumentService;
 
 @RestController
@@ -62,6 +67,29 @@ public class DocumentController {
 	public List<Integer> listDocuments() {
 		return documentService.listDocuments();
 	}
+	
+	@PostMapping(value = "/documents/posts", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public PostResponse createPost(@RequestBody PostRequest request) {
+		
+		return documentService.createPost(request);
+		
+	}
+	
+	@GetMapping(value = "/documents/{docId}/posts", produces = MediaType.APPLICATION_JSON_VALUE)
+	public PostResponse retrievePostOfDocument(@PathVariable(name = "docId") int docId) {
+		
+		return documentService.retrievePostOfDocument(docId);
+		
+	}
+	
+	
+	@PostMapping(value = "/documents/posts/comments", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public CommentResponse createComments(@RequestBody CommentRequest request) {
+		
+		return documentService.createComments(request);
+		
+	}
+	
 	
 
 }
