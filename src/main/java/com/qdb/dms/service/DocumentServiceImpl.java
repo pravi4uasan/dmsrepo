@@ -156,4 +156,11 @@ public class DocumentServiceImpl implements DocumentService {
 		return null;
 	}
 
+	@Override
+	public void deleteDocument(int docId) {
+		
+		documentRepository.deleteById(docId);
+		
+	}
+
 }
