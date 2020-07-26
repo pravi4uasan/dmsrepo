@@ -37,9 +37,6 @@ public class Post {
 			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	private Document document;
 	
-	@Column(name = "user_id")
-	private int userId;
-	
 	@Column(name = "title")
 	private String title;
 	
