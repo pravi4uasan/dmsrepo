@@ -143,7 +143,7 @@ public class DocumentServiceImpl implements DocumentService {
 					crvo.setEmail(c.getEmail());
 					crvo.setName(c.getName());
 					crvo.setId(c.getId());
-					crvo.setPostId(c.getPost().getId());
+					crvo.setPostId(request.getPostId());
 					return crvo;
 				})
 				.collect(Collectors.toList());
