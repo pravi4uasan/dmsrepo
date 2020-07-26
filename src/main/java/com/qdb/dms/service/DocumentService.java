@@ -25,4 +25,6 @@ public interface DocumentService {
 
 	public CommentResponse createComments(CommentRequest request);
 
+	public void deleteDocument(int docId);
+
 }
